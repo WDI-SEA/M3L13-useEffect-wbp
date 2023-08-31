@@ -14,7 +14,7 @@ You are a junior developer at a marketing firm called "Spark Digital." Your team
 ![coding practice](./assets/banner-coding.png)
 
 ### Preperation Steps
-- Fork and clone [this](https://git.generalassemb.ly/SEI-Standard-Curriculum/M3L13-useEffect-useRef-wbp) repository
+- Fork and clone this repository
 - Run `npm i`
 
 ### Step 1
