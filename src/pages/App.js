@@ -1,13 +1,23 @@
 // IMPORT useEffect and useRef
-import { useState} from 'react';
+import { useState, useEffect, useRef} from 'react';
 import * as usersAPI from '../utilities/users-api'
 import './App.css';
 
-function App() {
+export default function App() {
 	const [userData, setUserData] = useState([]);
   // ADD useRef
 
   // ADD useEffect
+  useEffect(function() {
+	async function getUsers() {
+		const data = await usersAPI.getUsers();
+		setUserData(data)
+	}
+	getUsers() 
+  }, []);
+
+	const countries = userData.map(u => u.location.country).filter((country, i, self) => self.indexOf(country) === i)
+
 
 	return (
 		<div>
@@ -19,6 +29,8 @@ function App() {
 						<h2 id='countries'>Countries</h2>
 						<ul aria-labelledby='countries'>
               {/* RENDER THE LIST OF COUNTRY NAMES */}
+			  						{ countries.map(country => <li key={country}> { country } </li>) }
+
 						</ul>
 					</section>
 					<section>
@@ -39,4 +51,4 @@ function App() {
 	);
 }
 
-export default App;
+
