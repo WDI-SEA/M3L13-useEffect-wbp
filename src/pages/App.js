@@ -1,14 +1,26 @@
 // IMPORT useEffect and useRef
-import { useState} from 'react';
+import { useState, useEffect, useRef } from 'react';
 import * as usersAPI from '../utilities/users-api'
 import './App.css';
 
 function App() {
 	const [userData, setUserData] = useState([]);
   // ADD useRef
-
+	const usersRef = useRef([]);
   // ADD useEffect
-
+	useEffect(function(){
+		// usersAPI.getUsers() to update userData state var
+		async function getAllUsers() {
+			const users = await usersAPI.getUsers();
+			usersRef.current = [...new Set(users.map(user => user.name.first))]
+			setUserData(users);
+			console.log(users)
+		}
+		getAllUsers();
+		// Derive list of countries from state
+		// Use .reduce() or .map() + .filter()
+		// console.log(users)
+	}, []);
 	return (
 		<div>
 			<header></header>
