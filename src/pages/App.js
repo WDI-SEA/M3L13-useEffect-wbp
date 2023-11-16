@@ -14,13 +14,13 @@ function App() {
 			const users = await usersAPI.getUsers();
 			usersRef.current = [...new Set(users.map(user => user.name.first))]
 			setUserData(users);
-			console.log(users)
 		}
 		getAllUsers();
 		// Derive list of countries from state
 		// Use .reduce() or .map() + .filter()
 		// console.log(users)
 	}, []);
+	const countriesSet = [...new Set(userData.map(user => user.location.country))]
 	return (
 		<div>
 			<header></header>
@@ -30,7 +30,9 @@ function App() {
 					<section>
 						<h2 id='countries'>Countries</h2>
 						<ul aria-labelledby='countries'>
-              {/* RENDER THE LIST OF COUNTRY NAMES */}
+							{countriesSet.map((c, idx) => {
+								return (<li key={idx}>{c}</li>)
+							})}
 						</ul>
 					</section>
 					<section>
