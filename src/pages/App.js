@@ -5,10 +5,15 @@ import "./App.css";
 
 function App() {
   const [userData, setUserData] = useState([]);
-  
+
   // ADD useRef
 
   // ADD useEffect
+  useEffect(() => {
+    usersAPI.getUsers().then((result) => {
+      setUserData(result);
+    });
+  }, []);
 
   return (
     <div>
@@ -19,7 +24,9 @@ function App() {
           <section>
             <h2 id="countries">Countries</h2>
             <ul aria-labelledby="countries">
-              {/* RENDER THE LIST OF COUNTRY NAMES */}
+              {userData.map((user, index) => {
+                return <li key={index}>{user.location.country}</li>;
+              })}{" "}
             </ul>
           </section>
           <section>
