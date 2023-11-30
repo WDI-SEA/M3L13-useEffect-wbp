@@ -22,7 +22,7 @@ function App() {
     <div>
       <header></header>
       <main>
-        <h1>Current Users</h1>
+        <h1>Current Userss</h1>
         <article>
           <section>
             <h2 id='countries'>Countries</h2>
