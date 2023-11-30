@@ -1,13 +1,28 @@
 // IMPORT useEffect and useRef
-import { useState} from 'react';
+import { useState, useEffect, useRef } from 'react'
 import * as usersAPI from '../utilities/users-api'
-import './App.css';
+import './App.css'
 
 function App() {
-	const [userData, setUserData] = useState([]);
+	const [userData, setUserData] = useState([])
+	const [activeCountries, setActiveCountries] = useState('')
+
   // ADD useRef
+	const countriesRef = useRef([])
 
   // ADD useEffect
+	useEffect(
+		function() {
+			async function getUsers() {
+				const randomUsers = await usersAPI.getUsers()
+				countriesRef.current = [...new Set(randomUsers.map(user => user.location.country))].sort()
+				setUserData(randomUsers)
+				setActiveCountries(countriesRef.current[0])
+				//console.log(randomUsers)
+			}
+			getUsers()
+		}, []
+	)
 
 	return (
 		<div>
@@ -18,7 +33,15 @@ function App() {
 					<section>
 						<h2 id='countries'>Countries</h2>
 						<ul aria-labelledby='countries'>
-              {/* RENDER THE LIST OF COUNTRY NAMES */}
+              {
+								countriesRef.current.map((country, index) => {
+									return(
+										<li key={index}>
+											{country}
+										</li>
+									)
+								})
+							}
 						</ul>
 					</section>
 					<section>
