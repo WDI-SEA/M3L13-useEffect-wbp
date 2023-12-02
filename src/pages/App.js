@@ -1,13 +1,21 @@
 // IMPORT useEffect and useRef
-import { useState} from 'react';
+import { useState, useEffect, useRef } from 'react';
 import * as usersAPI from '../utilities/users-api'
 import './App.css';
 
 function App() {
 	const [userData, setUserData] = useState([]);
   // ADD useRef
-
+	const countries = useRef([]);
   // ADD useEffect
+	useEffect(function() {
+		async function getUser() {
+		const userInfo = await usersAPI.getUsers();
+		setUserData(userInfo);
+		countries.current = [...new Set(userInfo.map(u => u.location.country).fillter((country, i, self) => self.indexOf(country) === i))];
+		}
+		getUser();
+	}, []);
 
 	return (
 		<div>
@@ -18,7 +26,10 @@ function App() {
 					<section>
 						<h2 id='countries'>Countries</h2>
 						<ul aria-labelledby='countries'>
-              {/* RENDER THE LIST OF COUNTRY NAMES */}
+        					{countries.current.map((c) => {
+							<li key={c} >
+								c
+							</li>})}
 						</ul>
 					</section>
 					<section>
